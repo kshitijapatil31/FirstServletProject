@@ -16,11 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(
 		description="Login Servlet Testing",
-		urlPatterns= {"/LoginServlet"},
-				initParams= {
-						@WebInitParam(name="user",value="kshitija"),
-						@WebInitParam(name="password",value="Kshitija")
-				}
+		urlPatterns= {"/LoginServlet"}
+				
 		)
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -33,15 +30,17 @@ public class LoginServlet extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			doGet(request, response);
+			//doGet(request, response);
 			String user=request.getParameter("user");
 			String password=request.getParameter("password");
-			
+			String pattern="[A-Za-z\s]{3,10}";
 			String userID=getServletConfig().getInitParameter(user);
 			String pass=getServletConfig().getInitParameter(password);
-			if(userID.equals(user)&& pass.equals(password)) {
-			request.setAttribute("user", user);
-			request.getRequestDispatcher("LoinSuccess.jsp").forward(request,response);
+			if (userID.equals(user) && password.equals(pass) && user.matches(pattern)) {
+			
+				request.setAttribute("user", user);
+		
+				request.getRequestDispatcher("LoinSuccess.jsp").forward(request,response);
 	}else {
 		RequestDispatcher rd=getServletContext().getRequestDispatcher("/login.html");
 		PrintWriter out=response.getWriter();
