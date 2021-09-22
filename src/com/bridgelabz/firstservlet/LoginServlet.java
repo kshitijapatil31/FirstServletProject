@@ -34,9 +34,10 @@ public class LoginServlet extends HttpServlet {
 			String user=request.getParameter("user");
 			String password=request.getParameter("password");
 			String pattern="[A-Za-z\s]{3,10}";
+			String pattern2="^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$";
 			String userID=getServletConfig().getInitParameter(user);
 			String pass=getServletConfig().getInitParameter(password);
-			if (userID.equals(user) && password.equals(pass) && user.matches(pattern)) {
+			if (userID.equals(user) && password.equals(pass) && user.matches(pattern) &&password.matches(pattern2)) {
 			
 				request.setAttribute("user", user);
 		
